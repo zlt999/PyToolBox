@@ -8,7 +8,7 @@ b_show_files = True
 
 if __name__ == "__main__":
     t = time.strftime("%H_%M_%S", time.localtime())
-    f_output = open("output{}.txt".format("_FB_" + t), "w", encoding="UTF-8")
+    f_output = open("Output_MP_{}.txt".format(t), "w", encoding="UTF-8")
     path_root = os.getcwd()
 
     for root, dirs, files in os.walk(path_root):

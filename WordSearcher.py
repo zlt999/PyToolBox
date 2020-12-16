@@ -1,4 +1,3 @@
-import string
 import time
 
 # ---- Beginning of setting ----
@@ -82,16 +81,17 @@ def Process(method_t, word_t, word_list_t, found_t, line_t, key_t, min_len_t):
     line_t = line_t[len(key_t):]
     return word_t, word_list_t, found_t, line_t
 
+
 if __name__ == "__main__":
     try:
         # 打开输入文件
-        f_input = open("input.txt", "r",encoding="UTF-8")
+        f_input = open("input.txt", "r", encoding="UTF-8")
 
         # 选择配置
-        print("现有配置：", end="")
-        for s in config_ID_list:
-            print(s, end=" ")
-        print("\n")
+        s = "现有配置："
+        for s1 in config_ID_list:
+            s += s1 + " "
+        print(s+"\n")
         config_ID = input("请输入选择的配置：")
         print()
 
@@ -104,14 +104,12 @@ if __name__ == "__main__":
         f_output = open("Output_WS_{}_{}.txt".format(config_ID, t), "w", encoding="UTF-8")
 
         # 初始化
-        num = [str(i) for i in range(10)]
         word = ""
         word_list = set()
 
         for line_raw in f_input.readlines():
             line = line_raw
             found = False
-            step = 1
             while line != "":
                 if found:
                     body_match_result = MatchBody(line, l_body_str)
@@ -124,13 +122,13 @@ if __name__ == "__main__":
                                                                min_len)
                     else:
                         legal = False
-                        if line[0] in string.ascii_uppercase:
+                        if line[0].isupper():
                             if b_contain_uppercase:
                                 legal = True
-                        elif line[0] in string.ascii_lowercase:
+                        elif line[0].islower():
                             if b_contain_lowercase:
                                 legal = True
-                        elif line[0] in num:
+                        elif line[0].isdigit():
                             if b_contain_numbers:
                                 legal = True
                         if legal:
@@ -139,7 +137,7 @@ if __name__ == "__main__":
                         else:
                             word, word_list, found, line = Process("Push", word, word_list, found, line, line[0],
                                                                    min_len)
-                else:
+                else: # !found
                     begin_match_result = MatchBegin(line, l_begin_str)
                     if begin_match_result is not None:
                         word, word_list, found, line = Process("Found", word, word_list, found, line,
@@ -157,11 +155,11 @@ if __name__ == "__main__":
 
         print("搜索完成，已生成文件："+"Output_WS_{}_{}.txt".format(config_ID, t))
     except FileNotFoundError:
-        f = open("input.txt","w")
+        f = open("input.txt", "w")
         f.close()
-        print("已创建文件input.txt，请存入需要搜索的内容，然后重新运行此脚本")
+        print("已创建文件input.txt，请在其中存入需要搜索的内容，然后重新运行此脚本")
     except ValueError:
         print("该配置字不存在")
-
-    print()
-    input("<< 程序已结束 >>")
+    finally:
+        print()
+        input("<< 程序已结束，按任意键退出 >>")

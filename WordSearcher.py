@@ -1,5 +1,9 @@
 import time
 
+# Thanks for using
+# Pls contact me if any problem
+# Author: Letian Zhang
+
 # ---- Beginning of setting ----
 config_ID_list = []
 config_param_list = []
@@ -8,7 +12,7 @@ config_param_list = []
 config_ID = "CVK"
 l_begin_str = ["C_", "V_", "K_", "c_", "v_", "k_"]
 l_end_str = []
-l_body_str = ["_", "[", "]"]
+l_body_str = ["_", "[XX].","[ FORWARD_OBJ_ID ]."]
 b_contain_uppercase = True
 b_contain_lowercase = True
 b_contain_numbers = True
